@@ -1,0 +1,8 @@
+datetime,customer_id,product,quantity,channel,entrega,dirección de correo electrónico,price,line_revenue,hour,weekday
+2026-04-16 17:48:25,luciatejera1992@gmail.com,pan brioche,1,whatsapp,,,1,1,17,Thursday
+2026-04-16 18:43:01,lucia,cookies,12,whatsapp,retiro en tienda,,1,12,18,Thursday
+2026-04-16 18:43:18,persa,pan blanco,1,whatsapp,retiro en tienda,,1,1,18,Thursday
+2026-04-16 18:43:34,olivia,pan blanco,1,whatsapp,entrega a domicilio,,1,1,18,Thursday
+2026-04-16 18:43:49,juan,pan blanco,2,whatsapp,entrega a domicilio,,1,2,18,Thursday
+2026-04-16 19:12:22,Mieke ,pan blanco,4,whatsapp,entrega a domicilio,,1,4,19,Thursday
+2026-04-16 19:12:53,Melani ,pan blanco,2,whatsapp,entrega a domicilio,,1,2,19,Thursday

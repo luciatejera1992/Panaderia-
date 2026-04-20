@@ -98,7 +98,44 @@ df['weekday'] = df['datetime'].dt.day_name()
 # SAVE
 # ------------------------------------------
 
+import os
+
+# crear carpeta si no existe
+os.makedirs("data/processed", exist_ok=True)
+
+# guardar archivo
 df.to_csv("data/processed/clean_data.csv", index=False)
 
 print("Pipeline ejecutado correctamente")
 print(df.head())
+
+
+# ==========================================
+# descarga de productos para normalizar nombres
+# ==========================================
+
+catalog = pd.read_csv("data/catalog/product.csv")
+
+# normalizar
+catalog['product'] = catalog['product'].str.strip().str.lower()
+
+
+# ==========================================
+# MERGE CON PRECIOS
+# ==========================================
+
+df = df.merge(
+    catalog,
+    on='product',
+    how='left'
+)
+# ==========================================
+# VALIDAR PRODUCTOS SIN PRECIO
+# ==========================================
+
+missing_prices = df[df['price'].isnull()]['product'].unique()
+
+if len(missing_prices) > 0:
+    print("⚠️ Productos sin precio:")
+    print(missing_prices)
+
