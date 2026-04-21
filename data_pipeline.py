@@ -80,13 +80,6 @@ df['channel'] = df['channel'].str.strip().str.lower()
 df = df.dropna(subset=['datetime', 'product', 'quantity'])
 
 # ------------------------------------------
-# ⚠️ AÚN NO TENEMOS PRECIO
-# ------------------------------------------
-# SOLUCIÓN TEMPORAL: asignar precio dummy
-
-df['price'] = 1  # placeholder temporal
-
-# ------------------------------------------
 # FEATURE ENGINEERING
 # ------------------------------------------
 
@@ -114,9 +107,25 @@ print(df.head())
 # descarga de productos para normalizar nombres
 # ==========================================
 
-catalog = pd.read_csv("data/catalog/product.csv")
+# ==========================================
+# LOAD PRODUCT CATALOG (ROBUSTO)
+# ==========================================
 
-# normalizar
+catalog = pd.read_csv("data/catalog/products.csv")
+
+# normalizar nombres de columnas
+catalog.columns = catalog.columns.str.strip().str.lower()
+
+print("Columnas catálogo:", catalog.columns)
+
+# validar columnas
+if 'product' not in catalog.columns:
+    raise ValueError("El catálogo debe tener columna 'product'")
+
+if 'price' not in catalog.columns:
+    raise ValueError("El catálogo debe tener columna 'price'")
+
+# normalizar contenido
 catalog['product'] = catalog['product'].str.strip().str.lower()
 
 
@@ -129,6 +138,15 @@ df = df.merge(
     on='product',
     how='left'
 )
+
+print("Columnas después del merge:", df.columns)
+
+# ==========================================
+# VALIDACIÓN DE PRICE
+# ==========================================
+
+if 'price' not in df.columns:
+    raise ValueError("ERROR: no existe columna 'price' después del merge")
 # ==========================================
 # VALIDAR PRODUCTOS SIN PRECIO
 # ==========================================
@@ -138,4 +156,10 @@ missing_prices = df[df['price'].isnull()]['product'].unique()
 if len(missing_prices) > 0:
     print("⚠️ Productos sin precio:")
     print(missing_prices)
+
+
+
+# ============================================
+
+df['line_revenue'] = df['quantity'] * df['price']
 
