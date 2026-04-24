@@ -103,9 +103,6 @@ print("Pipeline ejecutado correctamente")
 print(df.head())
 
 
-# ==========================================
-# descarga de productos para normalizar nombres
-# ==========================================
 
 # ==========================================
 # LOAD PRODUCT CATALOG (ROBUSTO)
@@ -161,5 +158,4 @@ if len(missing_prices) > 0:
 
 # ============================================
 
-df['line_revenue'] = df['quantity'] * df['price']
 
